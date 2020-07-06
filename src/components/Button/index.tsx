@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button as ButtonPaper } from 'react-native-paper';
+import styles from './styles';
 
 interface IProps {
   onPress?: (() => void) | undefined;
@@ -10,7 +11,16 @@ interface IProps {
 
 const Button: React.FC<IProps> = ({ children, onPress, icon, mode }) => {
   return (
-    <ButtonPaper accessibilityStates onPress={onPress} mode={mode} icon={icon}>
+    <ButtonPaper
+      accessibilityStates
+      style={styles.container}
+      color='#ffff'
+      contentStyle={mode === 'outlined' ? styles.outline : styles.button}
+      onPress={onPress}
+      mode={mode}
+      icon={icon}
+      compact
+    >
       {children}
     </ButtonPaper>
   );
