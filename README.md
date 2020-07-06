@@ -4,6 +4,9 @@
 </h1>
 <p align="center">App para mostrar nomes com os dados do IBGE.</p>
 
+<p align="center">
+[![NPM License][npm-license]][npm-license]
+</p>
 **Objetivo** - Dar acesso ao conteúdo das disciplinas do curso de Desenvolvimento de Sistemas do Senai. O contéudo está em formato de vídeo.
 
 **Justificativa** - Este projeto faz parte das atividades avaliativas do curso de desenvolvimento de sistemas para dispositivos móveis do curso de DS do SENAI.
