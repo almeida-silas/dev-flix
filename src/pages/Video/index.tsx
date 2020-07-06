@@ -1,25 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
+import React, { useEffect } from 'react';
+import { SafeAreaView, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import { Video } from 'expo-av';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import { WebView } from 'react-native-webview';
+
 import { StatusBar } from 'expo-status-bar';
 import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 
 import styles from './styles';
 
-const Home: React.FC = () => {
-  const [play, setPlay] = useState(false);
+import { IVideos } from '../Home/IVideos';
 
-  const handlePlay = () => {
-    setTimeout(() => {
-      setPlay(true);
-    }, 1000);
+interface IRoute {
+  params: {
+    video: IVideos;
+  };
+}
+
+interface IProps {
+  route: IRoute;
+}
+
+const Home: React.FC<IProps> = ({ route }) => {
+  const navigation = useNavigation();
+
+  const { video } = route.params;
+
+  async function changeScreenOrientation() {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+    );
+  }
+
+  const handleGoBack = () => {
+    ScreenOrientation.unlockAsync();
+
+    navigation.goBack();
   };
 
   useEffect(() => {
-    handlePlay();
-  });
+    changeScreenOrientation();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,17 +52,16 @@ const Home: React.FC = () => {
         <Appbar.Action
           accessibilityStates
           icon={() => <Icon name='arrow-left' style={styles.icon} />}
-        ></Appbar.Action>
+          onPress={handleGoBack}
+        />
       </Appbar.Header>
 
-      <Video
-        source={{
-          uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-        }}
-        resizeMode='cover'
-        shouldPlay={play}
+      <WebView
         style={styles.video}
-        useNativeControls
+        source={{
+          uri: `https://www.youtube.com/embed/${video.id}`,
+        }}
+        allowsFullscreenVideo
       />
     </SafeAreaView>
   );

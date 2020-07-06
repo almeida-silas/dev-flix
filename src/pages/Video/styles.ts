@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
   },
   icon: {
-    color: colors.secundary,
+    color: colors.light,
     fontSize: 22,
   },
   appbar: {
@@ -18,8 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   video: {
-    width,
-    height: height * 0.4,
+    height: '33%',
   },
 });
 
